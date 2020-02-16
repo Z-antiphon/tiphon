@@ -1,0 +1,21 @@
+<h2>検索画面</h2>
+
+<%= search_form_for @q, url: search_index_path do |f| %>
+  <%= f.label :title_cont, "タイトル" %>
+  <%= f.search_field :title_cont %>
+  <br>
+  <%= f.label :book_category_id_in, "カテゴリ" %>
+  <%- @categories.each_with_index do |category, i| %>
+    <%= f.check_box :book_category_id_in, {multiple: true, include_hidden: false, class: 'list'}, i+1 %>
+    <%= category.name %>
+  <% end %>
+  <br>
+  <%= f.submit "検索" %>
+<% end %>
+
+<% if @params.present? %>
+  <h2>検索結果</h2> 
+  <%- @books.each do |book| %>
+  <%= book.title %><br>
+  <% end %>
+<% end %>
